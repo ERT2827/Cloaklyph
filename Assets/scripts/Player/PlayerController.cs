@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
         
         
 
-        Debug.Log("M " + move);
+        // Debug.Log("M " + move);
 
         // Debug.Log(move);
 
@@ -49,8 +49,8 @@ public class PlayerController : MonoBehaviour
 
         //Dodging code
 
-        if(!dodging && Input.GetButton("Fire1") && move.magnitude > 0){
-            // StartCoroutine(dodgeFunct());
+        if(!dodging && Input.GetButton("Jump") && move.magnitude > 0){
+            StartCoroutine(dodgeFunct());
             Debug.Log("bleepus");
         }
     }
@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviour
     }
 
     void movePlayer(){
-        Vector3 movement = new Vector3(-move.y, 0, move.x);
+        Vector3 movement = new Vector3(move.x, 0, move.y);
 
         if(movement.magnitude > 0){
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(movement), 0.15f);
@@ -98,22 +98,22 @@ public class PlayerController : MonoBehaviour
         var dir = transform.TransformDirection (Vector3.down);
         
         // Up
-        if(!Physics.Raycast (transform.position - new Vector3(0f, 0f, 1f), dir, 1) && M.x < 0){
-            Debug.Log("Up");
+        if(!Physics.Raycast (transform.position - new Vector3(0f, 0f, 1.5f), dir, 1) && M.x < 0){
+            // Debug.Log("Up");
             M.x = -0.01f;
         // Down
-        }else if(!Physics.Raycast (transform.position - new Vector3(0f, 0f, -1f), dir, 1) && M.x > 0){
-            Debug.Log("Down");
+        }else if(!Physics.Raycast (transform.position - new Vector3(0f, 0f, -1.5f), dir, 1) && M.x > 0){
+            // Debug.Log("Down");
             M.x = 0.01f;
         // Left
         }
         
-        if(!Physics.Raycast (transform.position - new Vector3(-1f, 0f, 0f), dir, 1) && M.y < 0){
-            Debug.Log("Left");
+        if(!Physics.Raycast (transform.position - new Vector3(-1.5f, 0f, 0f), dir, 1) && M.y < 0){
+            // Debug.Log("Left");
             M.y = -0.01f;
         // Right
-        }else if(!Physics.Raycast (transform.position - new Vector3(1f, 0f, 0f), dir, 1) && M.y > 0){
-            Debug.Log("Right");
+        }else if(!Physics.Raycast (transform.position - new Vector3(1.5f, 0f, 0f), dir, 1) && M.y > 0){
+            // Debug.Log("Right");
             M.y = 0.01f;
         }
 
@@ -122,15 +122,15 @@ public class PlayerController : MonoBehaviour
 
 
     IEnumerator dodgeFunct(){
-        float xDif = -Input.GetAxisRaw("Vertical") * dodgeDistance;
-        float yDif = Input.GetAxisRaw("Horizontal") * dodgeDistance;
+        float xDif = Input.GetAxisRaw("Horizontal") * dodgeDistance;
+        float yDif = Input.GetAxisRaw("Vertical") * dodgeDistance;
         
 
-        dodgeStart = new Vector3(transform.position.x, 0, transform.position.y);
-        dodgeEnd = new Vector3(transform.position.x + xDif, 2, transform.position.z + yDif);
+        dodgeStart = new Vector3(transform.position.x, 0, transform.position.z);
+        dodgeEnd = new Vector3((transform.position.x + xDif), transform.position.y, (transform.position.z + yDif));
         dodgeDifference = dodgeEnd - dodgeStart;
 
-        Debug.Log("Axes are " + Input.GetAxisRaw("Horizontal") + " " + Input.GetAxisRaw("Vertical"));
+        // Debug.Log("Axes are " + Input.GetAxisRaw("Horizontal") + " " + Input.GetAxisRaw("Vertical"));
 
         Debug.Log(dodgeStart + " " + dodgeEnd + " " + dodgeDifference);
 
