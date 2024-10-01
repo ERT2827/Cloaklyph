@@ -84,7 +84,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 126
+  m_Constraints: 122
   m_CollisionDetection: 0
 --- !u!136 &1123617721
 CapsuleCollider:
@@ -127,9 +127,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 0}
-  range: 5
+  range: 10
   centrePoint: {x: 0, y: 0, z: 0}
   projectilePrefab: {fileID: 7327969454320245224, guid: 2dc0fe689f158784095fe79089c02d23, type: 3}
+  cooldown: 4
 --- !u!195 &1123617722
 NavMeshAgent:
   m_ObjectHideFlags: 0

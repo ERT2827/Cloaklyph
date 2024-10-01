@@ -132,7 +132,7 @@ public class PlayerController : MonoBehaviour
 
         // Debug.Log("Axes are " + Input.GetAxisRaw("Horizontal") + " " + Input.GetAxisRaw("Vertical"));
 
-        Debug.Log(dodgeStart + " " + dodgeEnd + " " + dodgeDifference);
+        // Debug.Log(dodgeStart + " " + dodgeEnd + " " + dodgeDifference);
 
         dodging = true;
 

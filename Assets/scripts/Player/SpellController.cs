@@ -24,12 +24,13 @@ public class SpellController : MonoBehaviour
     public GameObject[] spellPrefabs;
     
     [Header("Nearest Detection")]
-    [SerializeField] private GameObject[] targets;
+    [SerializeField] private List<GameObject> targets = new List<GameObject>(); 
     public GameObject nearestTarget;
 
     private void Awake() {
-        targets = GameObject.FindGameObjectsWithTag("Targetable");
-    
+        AddTargets();
+        
+        
         //Add spells to the list
         spellsList.Add(Quickshot);
         spellsList.Add(Homingshot);
@@ -37,6 +38,8 @@ public class SpellController : MonoBehaviour
         spellsList.Add(Explosioooon);
         spellsList.Add(AirDisk);
         spellsList.Add(AirDiskDeluxe);
+        spellsList.Add(ArrowRain);
+        spellsList.Add(Scarab);
     }
 
     private void Update() {
@@ -51,7 +54,7 @@ public class SpellController : MonoBehaviour
 
         if(Input.GetButton("Fire1")){
             int CSN = CheckCurrentSpell(); //CSN Stands for current spell number
-            if(!onCoolDown && targets.Length > 0){
+            if(!onCoolDown && nearestTarget != null){
                 if (CSN != -1)
                 {
                     spellsList[CSN]();
@@ -76,6 +79,12 @@ public class SpellController : MonoBehaviour
 
     private void FixedUpdate() {
         nearestTarget = nearestFinder();
+
+        CheckTargets();
+
+        if(targets.Count <= 0){
+            AddTargets();
+        }
     }
 
 
@@ -108,6 +117,25 @@ public class SpellController : MonoBehaviour
         return 0;
     }
 
+    void CheckTargets(){
+        foreach (var i in targets)
+        {
+            if(i == null){
+                targets.Remove(i);
+                return;
+            }
+        }
+    }
+
+    public void AddTargets(){
+        GameObject[] temp_Targets = GameObject.FindGameObjectsWithTag("Targetable"); //I was forced to change this because this doesn't allow me to add new game objects
+        foreach (GameObject i in temp_Targets){
+            if(!targets.Contains(i)){
+                targets.Add(i);
+            }
+        }
+    }
+
     // All spells must return void and have no variables
 
     void Quickshot(){
@@ -136,5 +164,19 @@ public class SpellController : MonoBehaviour
 
     void AirDiskDeluxe(){
         GameObject airdiskdeluxe = Instantiate(spellPrefabs[5], SSP.transform.position, Quaternion.identity) as GameObject;
+    }
+
+    void ArrowRain(){
+        Vector3 arrowPosition = transform.position;
+        arrowPosition.y = arrowPosition.y + 8;
+
+        int randy = Random.Range(0, 360);
+        Quaternion arrowRotation = Quaternion.Euler(0, randy, 0);
+        
+        GameObject arrow = Instantiate(spellPrefabs[6], arrowPosition, arrowRotation) as GameObject;
+    }
+
+    void Scarab(){
+       GameObject scarab = Instantiate(spellPrefabs[7], SSP.transform.position, Quaternion.identity) as GameObject; 
     }
 }

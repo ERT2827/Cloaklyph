@@ -22,6 +22,7 @@ public class AirDiskDeluxe : MonoBehaviour
 
         targetPos = FindClosest();
         StartCoroutine(SelfDestruct());
+        StartCoroutine(Solidify());
     }
 
     private void Update() {
@@ -62,9 +63,15 @@ public class AirDiskDeluxe : MonoBehaviour
             
         }
 
-        Debug.Log(previousTarget);
+        // Debug.Log(previousTarget);
 
         return tempclosest;
+    }
+
+    IEnumerator Solidify(){
+        yield return new WaitForSeconds(0.5f);
+
+        gameObject.GetComponent<Collider>().enabled = true;
     }
 
     IEnumerator SelfDestruct(){

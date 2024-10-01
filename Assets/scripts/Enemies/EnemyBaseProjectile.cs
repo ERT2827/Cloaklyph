@@ -21,12 +21,16 @@ public class EnemyBaseProjectile : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other) {
-        PlayerHealth PHP = other.GetComponent<PlayerHealth>();
+    private void OnCollisionEnter(Collision other) {
+        PlayerHealth PHP = other.gameObject.GetComponent<PlayerHealth>();
         
         if(other.gameObject.tag == "Player" && PHP != null){
             Debug.Log(PHP);
             PHP.TakeDamage();
+        }
+
+        if (other.gameObject.tag == "Targetable"){
+            Physics.IgnoreCollision(gameObject.GetComponent<Collider>(), other.gameObject.GetComponent<Collider>());
         }
         
         if(other.gameObject.tag != "Targetable"){
@@ -36,9 +40,18 @@ public class EnemyBaseProjectile : MonoBehaviour
     }
     
     public void Shoot(){
-        targetPos = GameObject.Find("Player").transform.position;
+        transform.LookAt(GameObject.Find("Player").transform);
+        targetPos = transform.rotation * new Vector3(0, 0, 100); 
+        targetPos.y = 1;
 
+        StartCoroutine(Solidify());
         StartCoroutine(AutoDestruct());
+    }
+
+    IEnumerator Solidify(){
+        yield return new WaitForSeconds(0.5f);
+
+        gameObject.GetComponent<Collider>().enabled = true;
     }
 
     IEnumerator AutoDestruct(){

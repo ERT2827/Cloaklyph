@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+public enum AI_Mode { Move, Act }
+
 public class ShooterScript : MonoBehaviour
 {
     [Header("Movement parameters")]
@@ -10,29 +12,51 @@ public class ShooterScript : MonoBehaviour
     public NavMeshAgent agent;
     public float range; //radius of sphere
 
-    public Vector3 centrePoint = new Vector3(0, 0, 0); //centre of the area the agent wants to move around in
-    //instead of centrePoint you can set it as the transform of the agent if you don't care about a specific area
+    public Vector3 centrePoint; //Set to world 0 if you want him
+    // to be stupid
 
     [Header("Shooting parameters")]
     [SerializeField] private GameObject projectilePrefab;
 
-    bool stopped = false; //This is to stop the enemy between cycles
-    
+    AI_Mode curMode; //This Enum controls the mode of the AI
+    [SerializeField] private float cooldown;
+    float cooldownTimer;
+
+
     void Start()
     {    
         agent = GetComponent<NavMeshAgent>();
+        centrePoint = transform.position;
+        
+        curMode = AI_Mode.Move;
     }
 
     
     void Update()
     {
-        if (agent.remainingDistance <= agent.stoppingDistance && !stopped){ //Done with path
-            stopped = true;
+        cooldownTimer += Time.deltaTime;
+        
+        if (agent.remainingDistance <= agent.stoppingDistance && curMode == AI_Mode.Move && cooldown < cooldownTimer){ //Done with path            
+            curMode = AI_Mode.Act;
             
             StartCoroutine(StopNShoot());
+        }else if(curMode == AI_Mode.Move && cooldown*2 < cooldownTimer){
+            FindNewPos();
+
+            cooldownTimer = 0;
         }
 
     }
+
+    void FindNewPos(){
+        Vector3 point;
+        if (RandomPoint(centrePoint, range, out point)) //pass in our centre point and radius of area
+        {
+            Debug.DrawRay(point, Vector3.up, Color.blue, 1.0f); //so you can see with gizmos
+            agent.SetDestination(point);
+        }
+    }
+
     bool RandomPoint(Vector3 center, float range, out Vector3 result)
     {
 
@@ -55,13 +79,9 @@ public class ShooterScript : MonoBehaviour
         
         yield return new WaitForSeconds(1f);
 
-        Vector3 point;
-            if (RandomPoint(centrePoint, range, out point)) //pass in our centre point and radius of area
-            {
-                Debug.DrawRay(point, Vector3.up, Color.blue, 1.0f); //so you can see with gizmos
-                agent.SetDestination(point);
-            }
+        FindNewPos();
         
-        stopped = false;
+        cooldownTimer = 0;
+        curMode = AI_Mode.Move;
     }
 }

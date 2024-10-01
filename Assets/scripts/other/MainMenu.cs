@@ -10,6 +10,10 @@ public class MainMenu : MonoBehaviour
     }
 
     public void loadMovement(){
-        SceneManager.LoadScene("momentTest", LoadSceneMode.Single);
+        SceneManager.LoadScene("movementTest", LoadSceneMode.Single);
+    }
+
+    public void LoadEndless(){
+        SceneManager.LoadScene("Endless", LoadSceneMode.Single);
     }
 }

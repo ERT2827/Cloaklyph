@@ -7,7 +7,11 @@ public class tempQuit : MonoBehaviour
 {
     private void Update() {
         if(Input.GetKeyDown(KeyCode.Escape)) {
-            Application.Quit();
+            if(SceneManager.GetActiveScene().name != "mainMenu"){
+                SceneManager.LoadScene("mainMenu", LoadSceneMode.Single);
+            }else{
+                Application.Quit();
+            }
         }
 
         if(Input.GetKeyDown(KeyCode.R)){

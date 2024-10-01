@@ -13,12 +13,15 @@ public class AirDisk : MonoBehaviour
 
     Transform targetPos;
 
+    Transform lastTarget;
+
     // Start is called before the first frame update
     void Awake()
     {
         Targets = GameObject.FindGameObjectsWithTag("Targetable");
 
         targetPos = FindClosest();
+        StartCoroutine(Solidify());
         Bounces = 1;
     }
 
@@ -30,13 +33,17 @@ public class AirDisk : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other){
-        EnemyHealth EHP = other.GetComponent<EnemyHealth>();
+    private void OnCollisionEnter(Collision other) {
+        EnemyHealth EHP = other.gameObject.GetComponent<EnemyHealth>();
         
         if(other.gameObject.tag == "Targetable" && EHP != null){
             // Debug.Log(EHP);
             EHP.TakeDamage(projectileDamage);
             targetPos = null;
+        }
+
+        if(other.gameObject.layer == 7 || other.gameObject.layer == 6){
+            bounce();
         }
     }
 
@@ -57,12 +64,21 @@ public class AirDisk : MonoBehaviour
             if(i != null){
                 float d = Vector3.Distance(i.transform.position, transform.position);
                 if(d < closestDistance){
-                    tempclosest = i.transform;
-                    closestDistance = d;
+                    if(i.transform != lastTarget){
+                        tempclosest = i.transform;
+                        closestDistance = d;
+                    }
                 }
             }
         }
 
+        lastTarget = tempclosest;
         return tempclosest;
+    }
+
+    IEnumerator Solidify(){
+        yield return new WaitForSeconds(0.5f);
+
+        gameObject.GetComponent<Collider>().enabled = true;
     }
 }

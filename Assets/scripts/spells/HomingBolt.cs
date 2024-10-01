@@ -11,6 +11,7 @@ public class HomingBolt : MonoBehaviour
     private void Awake() {
         Debug.Log("I live");
         StartCoroutine(AutoDestruct());
+        StartCoroutine(Solidify());
     }
     
     private void Update() {
@@ -21,9 +22,13 @@ public class HomingBolt : MonoBehaviour
         transform.LookAt(homingTarget);
     }
 
-    private void OnTriggerEnter(Collider other) {
-        EnemyHealth EHP = other.GetComponent<EnemyHealth>();
+    private void OnCollisionEnter(Collision other) {
+        EnemyHealth EHP = other.gameObject.GetComponent<EnemyHealth>();
         
+        if(other.gameObject.tag == "Player"){
+            Physics.IgnoreCollision(gameObject.GetComponent<Collider>(), other.gameObject.GetComponent<Collider>());
+        }
+
         if(other.gameObject.tag == "Targetable" && EHP != null){
             Debug.Log(EHP);
             EHP.TakeDamage(projectileDamage);
@@ -41,6 +46,12 @@ public class HomingBolt : MonoBehaviour
         }else{
             Destroy(gameObject);
         }
+    }
+
+    IEnumerator Solidify(){
+        yield return new WaitForSeconds(0.5f);
+
+        gameObject.GetComponent<Collider>().enabled = true;
     }
 
     IEnumerator AutoDestruct(){

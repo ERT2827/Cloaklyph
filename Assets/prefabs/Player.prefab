@@ -80,6 +80,8 @@ MonoBehaviour:
   - UpDownRightUpDownRightLeft
   - RightLeftUpUp
   - RightLeftUpRightLeftUpUp
+  - UpDownUpDownDown
+  - UpRightDownLeftUpUp
   spellPrefabs:
   - {fileID: 2763588070351299367, guid: 1949983e5d4843b4a9e825c7b353784e, type: 3}
   - {fileID: 2763588070351299367, guid: e8cc15bceab658c44b9c33bd5074352d, type: 3}
@@ -87,6 +89,8 @@ MonoBehaviour:
   - {fileID: 7313292157245970664, guid: d58a00bda6695ba4d87d65e4c76f189b, type: 3}
   - {fileID: 695201675530248094, guid: 2148c8efc0752ec49846d1e891131883, type: 3}
   - {fileID: 144678916912788896, guid: 276d4d6e43776c14bab33d15493d6acf, type: 3}
+  - {fileID: 7380169885358358468, guid: 1c45ed6713903784c93f28c9986722b9, type: 3}
+  - {fileID: 7718294504685690437, guid: dc35a672bca2e3a43acbf4e564b9b49a, type: 3}
   targets: []
   nearestTarget: {fileID: 0}
 --- !u!114 &-2567305193330222796
@@ -105,6 +109,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   lastGround: {x: 0, y: 0, z: 0}
+  invincible: 0
 --- !u!136 &5700309604730024119
 CapsuleCollider:
   m_ObjectHideFlags: 0

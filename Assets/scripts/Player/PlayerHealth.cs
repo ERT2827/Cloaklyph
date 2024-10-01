@@ -12,6 +12,8 @@ public class PlayerHealth : MonoBehaviour
     
     bool alive = true;
 
+    public bool invincible = false; //Fighting the urge to call this variable "the guy from fortnite"
+
     private void Update() {
         RaycastHit hit;
 
@@ -27,6 +29,9 @@ public class PlayerHealth : MonoBehaviour
     }
 
     public void TakeDamage(/*int element*/){
+        if(invincible){
+            return;
+        }
         alive = false;
     }
 

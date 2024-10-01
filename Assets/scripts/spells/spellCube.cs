@@ -6,7 +6,7 @@ public class spellCube : MonoBehaviour
 {
     [SerializeField] private float fallDelay = 0.5f;
     [SerializeField] private int projectileDamage = 0;
-    bool dangerous;
+    bool dangerous = true;
 
     void Start (){
         StartCoroutine(fallTime());
@@ -19,6 +19,7 @@ public class spellCube : MonoBehaviour
             if(other.gameObject.tag == "Targetable" && EHP != null){
                 // Debug.Log(EHP);
                 EHP.TakeDamage(projectileDamage);
+                Physics.IgnoreCollision(gameObject.GetComponent<Collider>(), other.gameObject.GetComponent<Collider>());
             }
         }else if (other.gameObject.layer == 6){
             StartCoroutine(deleteSelf());
