@@ -18,13 +18,12 @@ public class GateScript : MonoBehaviour
     }
     
     private void Update() {
-        Debug.Log("Playerstate is: " + UniversalVariables.playerState);
+        // Debug.Log("Playerstate is: " + UniversalVariables.playerState);
         
         if(UniversalVariables.playerState == PlayerState.Exploring){
             transform.position = Vector3.Lerp(transform.position, downPosition, Time.deltaTime * smoothFactor);
         }else
         {
-
             transform.position = Vector3.Lerp(transform.position, defaultPosition, Time.deltaTime * smoothFactor);
         }
     }

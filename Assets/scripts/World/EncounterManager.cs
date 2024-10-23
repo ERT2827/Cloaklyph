@@ -41,7 +41,11 @@ public class EncounterManager : MonoBehaviour
 
             foreach (GameObject i in minions)
             {
-                i.SetActive(true);
+                if(i == null){
+                    minions.Remove(i);
+                }else{
+                    i.SetActive(true);
+                }
             }
 
             other.gameObject.GetComponent<SpellController>().AddTargets();
@@ -59,7 +63,11 @@ public class EncounterManager : MonoBehaviour
 
         foreach (GameObject i in minions)
         {
-            i.SetActive(false);
+            if(i == null){
+                    minions.Remove(i);
+                }else{
+                    i.SetActive(false);
+                }
         }
 
         UniversalVariables.playerState = PlayerState.Exploring;

@@ -127,6 +127,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 4
   currentHealth: 0
+  alignment: 0
+  weakness: 0
+  hitEffects:
+  - {fileID: 1437608745526151966, guid: 252e8bd380138ed49b6ba847fbd24881, type: 3}
+  - {fileID: 1437608745526151966, guid: eae0559c7ec8ea34fbdf1203f7f94361, type: 3}
+  - {fileID: 1437608745526151966, guid: 5f187f9c523c18b43b72ad827d888b96, type: 3}
 --- !u!195 &443486808
 NavMeshAgent:
   m_ObjectHideFlags: 0

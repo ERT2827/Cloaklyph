@@ -5,10 +5,12 @@ using UnityEngine;
 public class EnemyBaseProjectile : MonoBehaviour
 {
     [SerializeField] private float projectileSpeed;
-    [SerializeField] private string projectileElement;
+    [SerializeField] private int elementAlignment;
     Vector3 targetPos;
+    Transform playerTras;
     
     private void Awake() {
+        playerTras = GameObject.Find("Player").transform;
         Shoot();
         // Debug.Log("I live");
     }
@@ -17,7 +19,7 @@ public class EnemyBaseProjectile : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, targetPos, projectileSpeed * Time.deltaTime);
 
         if (transform.position == targetPos) {
-            Destroy(gameObject);
+            targetPos = transform.forward * 100;
         }
     }
 
@@ -26,7 +28,7 @@ public class EnemyBaseProjectile : MonoBehaviour
         
         if(other.gameObject.tag == "Player" && PHP != null){
             Debug.Log(PHP);
-            PHP.TakeDamage();
+            PHP.TakeDamage(elementAlignment);
         }
 
         if (other.gameObject.tag == "Targetable"){
@@ -41,8 +43,7 @@ public class EnemyBaseProjectile : MonoBehaviour
     
     public void Shoot(){
         transform.LookAt(GameObject.Find("Player").transform);
-        targetPos = transform.rotation * new Vector3(0, 0, 100); 
-        targetPos.y = 1;
+        targetPos = playerTras.transform.position;
 
         StartCoroutine(Solidify());
         StartCoroutine(AutoDestruct());

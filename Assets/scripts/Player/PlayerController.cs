@@ -23,6 +23,9 @@ public class PlayerController : MonoBehaviour
     Vector3 dodgeEnd;
     Vector3 dodgeDifference;
 
+    [SerializeField] private float dodgeCooldown;
+    bool dodgeCoolingDown = false;
+
     [Header("Technical nessecities")]
 
     [SerializeField] private LayerMask dodgeCollideLayers;
@@ -49,7 +52,7 @@ public class PlayerController : MonoBehaviour
 
         //Dodging code
 
-        if(!dodging && Input.GetButton("Jump") && move.magnitude > 0){
+        if(!dodging && Input.GetButton("Jump") && move.magnitude > 0 && !dodgeCoolingDown){
             StartCoroutine(dodgeFunct());
             Debug.Log("bleepus");
         }
@@ -87,6 +90,7 @@ public class PlayerController : MonoBehaviour
         
         if(other.gameObject.layer == 7){
             dodging = false;
+            StartCoroutine(DodgeCoolDown());
             Debug.Log("Hit " + other.gameObject.layer);
         }
     }
@@ -126,7 +130,7 @@ public class PlayerController : MonoBehaviour
         float yDif = Input.GetAxisRaw("Vertical") * dodgeDistance;
         
 
-        dodgeStart = new Vector3(transform.position.x, 0, transform.position.z);
+        dodgeStart = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         dodgeEnd = new Vector3((transform.position.x + xDif), transform.position.y, (transform.position.z + yDif));
         dodgeDifference = dodgeEnd - dodgeStart;
 
@@ -139,6 +143,14 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(dodgeDuration);
 
         dodging = false;
+    }
+
+    IEnumerator DodgeCoolDown(){
+        dodgeCoolingDown = true;
+
+        yield return new WaitForSeconds(dodgeCooldown);
+
+        dodgeCoolingDown = false;
     }
 
     // IEnumerator dodgeCoolDown(){

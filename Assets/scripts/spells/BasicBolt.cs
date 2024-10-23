@@ -6,6 +6,9 @@ public class BasicBolt : MonoBehaviour
 {
     [SerializeField] float projectileSpeed;
     [SerializeField] int projectileDamage;
+    [SerializeField] int element;
+    [SerializeField] float lifeTime;
+
     Vector3 targetPos;
     
     private void Awake() {
@@ -16,6 +19,10 @@ public class BasicBolt : MonoBehaviour
     
     private void Update() {
         transform.position = Vector3.MoveTowards(transform.position, targetPos, projectileSpeed * Time.deltaTime);
+
+        if(transform.position == targetPos){
+            targetPos = transform.forward * 100; 
+        }
     }
 
     private void OnCollisionEnter(Collision other) {
@@ -26,8 +33,8 @@ public class BasicBolt : MonoBehaviour
         }
         
         if(other.gameObject.tag == "Targetable" && EHP != null){
-            Debug.Log(EHP);
-            EHP.TakeDamage(projectileDamage);
+            // Debug.Log(EHP);
+            EHP.TakeDamage(projectileDamage, element);
         }
         
         if(other.gameObject.tag != "Player"){
@@ -39,8 +46,7 @@ public class BasicBolt : MonoBehaviour
     public void Shoot(Transform Target){
         if(Target != null){
             transform.LookAt(Target);
-            targetPos = transform.rotation * new Vector3(0, 0, 100); 
-            targetPos.y = 1;
+            targetPos = Target.position; 
         }else{
             Destroy(gameObject);
         }
@@ -53,7 +59,7 @@ public class BasicBolt : MonoBehaviour
     }
     
     IEnumerator AutoDestruct(){
-        yield return new WaitForSeconds(7f);
+        yield return new WaitForSeconds(lifeTime);
 
         Destroy(gameObject);
     }

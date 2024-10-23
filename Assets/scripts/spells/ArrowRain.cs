@@ -12,7 +12,7 @@ public class ArrowRain : MonoBehaviour
         
             if(other.gameObject.tag == "Targetable" && EHP != null){
                 // Debug.Log(EHP);
-                EHP.TakeDamage(projectileDamage);
+                EHP.TakeDamage(projectileDamage, 1);
             }
         }else if (other.gameObject.layer == 6){
             Destroy(gameObject);

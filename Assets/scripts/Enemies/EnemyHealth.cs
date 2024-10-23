@@ -7,6 +7,11 @@ public class EnemyHealth : MonoBehaviour
 {
     [SerializeField] private int maxHealth;
     [SerializeField] private int currentHealth;
+    [SerializeField] private int alignment;
+    [SerializeField] private int weakness;
+
+    [Header("Other Systems")]
+    [SerializeField] private GameObject[] hitEffects = new GameObject[3];
 
     private GameObject player; //It needs the player object to
     //add it to the list of targets
@@ -20,16 +25,31 @@ public class EnemyHealth : MonoBehaviour
         player.GetComponent<SpellController>().AddTargets();
     }
 
-    private void Update() {
+
+    public void TakeDamage(int DT, int EA){ //DT = Damage Taken, EA = Elemental Alignment
+        if (EA == weakness){
+            currentHealth -= DT * 2;
+            Instantiate(hitEffects[EA], transform.position, Quaternion.identity);
+            Instantiate(hitEffects[EA], transform.position, Quaternion.identity);
+            Instantiate(hitEffects[EA], transform.position, Quaternion.identity);
+            // Debug.Log("Crit on " + gameObject.name);
+        }else if(EA == alignment){
+            currentHealth -= DT / 2;
+            Instantiate(hitEffects[EA], transform.position, Quaternion.identity);
+            Instantiate(hitEffects[EA], transform.position, Quaternion.identity);
+            // Debug.Log("Resist hit on " + gameObject.name);
+        }else{
+            currentHealth -= DT;
+            Instantiate(hitEffects[EA], transform.position, Quaternion.identity);
+            // Debug.Log("Normal Damage on " + gameObject.name);
+        }
+
+
         if (currentHealth <= 0){
-            // Tell the player health your element
+            player.GetComponent<PlayerHealth>().KillHeal(alignment);
             Destroy(gameObject);
         }
-    }
-
-
-    public void TakeDamage(int DT){ //DT = Damage Taken
-        currentHealth -= DT;
+        
         HitAnimation();
     }
 

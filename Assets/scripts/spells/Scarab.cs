@@ -57,7 +57,7 @@ public class Scarab : MonoBehaviour
         EnemyHealth EHP = other.gameObject.GetComponent<EnemyHealth>();
 
         if(other.gameObject.tag == "Targetable" && EHP != null && coolDownTimer > coolDown){
-            EHP.TakeDamage(damage);
+            EHP.TakeDamage(damage, 2);
             coolDownTimer = 0;
         }
     }

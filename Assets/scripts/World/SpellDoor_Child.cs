@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SpellDoor_Child : MonoBehaviour
 {
-    [SerializeField] SpellDoor parentDoor;
+    // [SerializeField] SpellDoor parentDoor;
     PlayerState ps;
     SpellController spellController;
     SpellDoor daddyDoor;
@@ -28,6 +28,7 @@ public class SpellDoor_Child : MonoBehaviour
     }
     
     private void OnCollisionEnter(Collision other) {
-        //Tell the parent door what kind of spell it was
+        Debug.Log(other.gameObject.name);
+        daddyDoor.SpellChecker(other.gameObject.name);
     }
 }

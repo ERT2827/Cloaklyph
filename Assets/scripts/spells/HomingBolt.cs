@@ -31,7 +31,7 @@ public class HomingBolt : MonoBehaviour
 
         if(other.gameObject.tag == "Targetable" && EHP != null){
             Debug.Log(EHP);
-            EHP.TakeDamage(projectileDamage);
+            EHP.TakeDamage(projectileDamage, 2);
         }
         
         if(other.gameObject.tag != "Player"){

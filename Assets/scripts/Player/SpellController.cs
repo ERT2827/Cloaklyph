@@ -32,7 +32,7 @@ public class SpellController : MonoBehaviour
         
         
         //Add spells to the list
-        spellsList.Add(Quickshot);
+        spellsList.Add(Fizzle);
         spellsList.Add(Homingshot);
         spellsList.Add(Big_Rock);
         spellsList.Add(Explosioooon);
@@ -40,6 +40,11 @@ public class SpellController : MonoBehaviour
         spellsList.Add(AirDiskDeluxe);
         spellsList.Add(ArrowRain);
         spellsList.Add(Scarab);
+        spellsList.Add(Airburst);
+        spellsList.Add(SelfHeal);
+        spellsList.Add(Melee);
+        spellsList.Add(BasicShot);
+        spellsList.Add(SniperShot);
     }
 
     private void Update() {
@@ -109,7 +114,7 @@ public class SpellController : MonoBehaviour
         for (int i = 0; i < spellInputs.Count; i++)
         {
             if(spellInputs[i] == inputHistory){
-                Debug.Log(i+1);
+                Debug.Log(spellPrefabs[i+1].name);
                 return i + 1;
             }
         }
@@ -138,9 +143,8 @@ public class SpellController : MonoBehaviour
 
     // All spells must return void and have no variables
 
-    void Quickshot(){
+    void Fizzle(){
         GameObject bolt = Instantiate(spellPrefabs[0], SSP.transform.position, Quaternion.identity) as GameObject; 
-        bolt.GetComponent<BasicBolt>().Shoot(nearestTarget.transform);
     }
 
     void Homingshot(){
@@ -178,5 +182,31 @@ public class SpellController : MonoBehaviour
 
     void Scarab(){
        GameObject scarab = Instantiate(spellPrefabs[7], SSP.transform.position, Quaternion.identity) as GameObject; 
+    }
+
+    void Airburst(){
+        GameObject airburst = Instantiate(spellPrefabs[8], SSP.transform.position, Quaternion.identity) as GameObject;
+        airburst.transform.rotation = transform.rotation;
+    }
+
+    void SelfHeal(){
+        gameObject.GetComponent<PlayerHealth>().HealSpell();
+        // Debug.Log("Benis 9000");
+    }
+
+    void Melee(){
+        Quaternion q = Quaternion.Euler(90, transform.rotation.y, 0);
+        
+        GameObject melee = Instantiate(spellPrefabs[10], SSP.transform.position, transform.rotation) as GameObject;
+        melee.transform.SetParent(gameObject.transform);
+    }
+
+    void BasicShot(){
+        GameObject bolt = Instantiate(spellPrefabs[11], SSP.transform.position, Quaternion.identity) as GameObject; 
+        bolt.GetComponent<BasicBolt>().Shoot(nearestTarget.transform);
+    }
+    
+    void SniperShot(){
+        GameObject bolt = Instantiate(spellPrefabs[12], SSP.transform.position, Quaternion.identity) as GameObject; 
     }
 }

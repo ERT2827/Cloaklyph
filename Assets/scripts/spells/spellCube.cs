@@ -18,7 +18,7 @@ public class spellCube : MonoBehaviour
         
             if(other.gameObject.tag == "Targetable" && EHP != null){
                 // Debug.Log(EHP);
-                EHP.TakeDamage(projectileDamage);
+                EHP.TakeDamage(projectileDamage, 3);
                 Physics.IgnoreCollision(gameObject.GetComponent<Collider>(), other.gameObject.GetComponent<Collider>());
             }
         }else if (other.gameObject.layer == 6){

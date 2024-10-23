@@ -10,7 +10,7 @@ public class FallZone : MonoBehaviour
         }else if(other.gameObject.tag == "Targetable"){
             EnemyHealth EH = other.gameObject.GetComponent<EnemyHealth>();
             if(EH != null){
-                EH.TakeDamage(9999);
+                EH.TakeDamage(9999, 3);
             }
         }
     }

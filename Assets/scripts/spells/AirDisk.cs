@@ -38,7 +38,7 @@ public class AirDisk : MonoBehaviour
         
         if(other.gameObject.tag == "Targetable" && EHP != null){
             // Debug.Log(EHP);
-            EHP.TakeDamage(projectileDamage);
+            EHP.TakeDamage(projectileDamage, 1);
             targetPos = null;
         }
 

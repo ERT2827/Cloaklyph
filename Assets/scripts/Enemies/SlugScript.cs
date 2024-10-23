@@ -12,6 +12,7 @@ public class SlugScript : MonoBehaviour
 
     [SerializeField] private float slugSpeed;
     // [SerializeField] private float slugDamage;
+    [SerializeField] private int elementAlignment;
 
     
     // Start is called before the first frame update
@@ -37,7 +38,7 @@ public class SlugScript : MonoBehaviour
 
     private void OnCollisionEnter(Collision other){
         if(other.gameObject.tag == "Player"){
-            other.gameObject.GetComponent<PlayerHealth>().TakeDamage();
+            other.gameObject.GetComponent<PlayerHealth>().TakeDamage(elementAlignment);
         }
     }
 }

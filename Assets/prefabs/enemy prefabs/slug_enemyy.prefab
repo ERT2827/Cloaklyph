@@ -109,6 +109,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 2
   currentHealth: 0
+  alignment: 0
+  weakness: 0
+  hitEffects:
+  - {fileID: 1437608745526151966, guid: 252e8bd380138ed49b6ba847fbd24881, type: 3}
+  - {fileID: 1437608745526151966, guid: eae0559c7ec8ea34fbdf1203f7f94361, type: 3}
+  - {fileID: 1437608745526151966, guid: 5f187f9c523c18b43b72ad827d888b96, type: 3}
 --- !u!114 &1978560341
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,3 +131,4 @@ MonoBehaviour:
   playerTrans: {fileID: 0}
   playerHealth: {fileID: 0}
   slugSpeed: 1
+  elementAlignment: 0

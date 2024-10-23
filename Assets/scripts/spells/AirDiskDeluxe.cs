@@ -38,7 +38,7 @@ public class AirDiskDeluxe : MonoBehaviour
         
         if(other.gameObject.tag == "Targetable" && EHP != null){
             // Debug.Log(EHP);
-            EHP.TakeDamage(projectileDamage);
+            EHP.TakeDamage(projectileDamage, 3);
             targetPos = null;
         }
     }

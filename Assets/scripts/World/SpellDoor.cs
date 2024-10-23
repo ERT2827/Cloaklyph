@@ -28,7 +28,7 @@ public class SpellDoor : MonoBehaviour
 
     private void Update() {
         if(unlocked){
-
+            transform.position = Vector3.Lerp(transform.position, endpos, Time.deltaTime * 0.1f);
         }
 
         if(transform.position == endpos){
@@ -50,10 +50,10 @@ public class SpellDoor : MonoBehaviour
         }
     }
 
-    void SpellChecker(string comper){
+    public void SpellChecker(string comper){
         if(comper == spellCheck){
-            transform.position = endpos;
-            Destroy(transform.GetChild(0).gameObject); 
+            unlocked = true;
+            // Destroy(transform.GetChild(0).gameObject); 
         }
     }
 }

@@ -14,7 +14,7 @@ public class ExplosionSpell : MonoBehaviour
         EnemyHealth EHP = other.gameObject.GetComponent<EnemyHealth>();
         
         if(other.gameObject.tag == "Targetable" && EHP != null){
-            EHP.TakeDamage(ballDamage);
+            EHP.TakeDamage(ballDamage, 0);
         }
     }
 
