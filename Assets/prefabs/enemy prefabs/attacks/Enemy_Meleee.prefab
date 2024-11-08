@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5660756176635965064}
   m_Layer: 0
   m_Name: Enemy_Meleee
-  m_TagString: Untagged
+  m_TagString: Enemy_Proj
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileDuration: 0.7
-  elementAlignment: 0
+  elementAlignment: 1
 --- !u!65 &5660756176635965064
 BoxCollider:
   m_ObjectHideFlags: 0

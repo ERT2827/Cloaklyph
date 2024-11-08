@@ -98,7 +98,7 @@ public class HammerTime : MonoBehaviour
             float addedOffset = (i - (bulletCount / 2) * spread) - spread;
             
             newRot = Quaternion.Euler(transform.rotation.x, transform.rotation.y + addedOffset, transform.rotation.z);
-            Instantiate(bulletPref, transform);
+            Instantiate(bulletPref, transform.position, newRot);
         }
     }
 

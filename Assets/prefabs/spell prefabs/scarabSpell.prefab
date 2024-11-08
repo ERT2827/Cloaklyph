@@ -59,6 +59,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: scarabSpell
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a6c52479abad9ec4d8e39bb684e3aa20, type: 3}
+      propertyPath: m_TagString
+      value: Player_Proj
+      objectReference: {fileID: 0}
     - target: {fileID: 8449996119470504636, guid: a6c52479abad9ec4d8e39bb684e3aa20, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -115,6 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d6b821ce38e458458de31f7877f1d8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targets: []
   ScarabSpeed: 10
   UpTime: 30
   damage: 1

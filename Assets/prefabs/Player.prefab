@@ -107,6 +107,7 @@ MonoBehaviour:
   SSP: {fileID: 5914664645938834787}
   coolDown: 0.5
   coolDownTimer: 0
+  playerHealth: {fileID: 0}
   inputHistory: 
   spellInputs:
   - DownRightUp
@@ -121,8 +122,12 @@ MonoBehaviour:
   - Right
   - Up
   - DownUp
+  - UpUpRightUpDownLeftUpDownRightUpLeftDown
+  - UpLeftRightDownUp
+  - LeftLeftRightUp
+  - DownLeftUpUpUp
   spellPrefabs:
-  - {fileID: 2763588070351299367, guid: 1949983e5d4843b4a9e825c7b353784e, type: 3}
+  - {fileID: 774299894371416298, guid: 314c59aef1fd3624c96cbc24502b97a3, type: 3}
   - {fileID: 2763588070351299367, guid: e8cc15bceab658c44b9c33bd5074352d, type: 3}
   - {fileID: 5363599083911558179, guid: 48332a43e1561e64287382f82f68a4f6, type: 3}
   - {fileID: 7313292157245970664, guid: d58a00bda6695ba4d87d65e4c76f189b, type: 3}
@@ -135,8 +140,13 @@ MonoBehaviour:
   - {fileID: 1903578354501917873, guid: 636e151a03899fd4287dea3a736b6bd6, type: 3}
   - {fileID: 2763588070351299367, guid: 1103b67d393af57459b7e934afb01667, type: 3}
   - {fileID: 2763588070351299367, guid: 724d03a0768dfce41864b9c9394c0e07, type: 3}
+  - {fileID: 3775811223487097630, guid: 22590876f12ff114187bcd2e21a4fc95, type: 3}
+  - {fileID: 774299894371416298, guid: 314c59aef1fd3624c96cbc24502b97a3, type: 3}
+  - {fileID: 774299894371416298, guid: 314c59aef1fd3624c96cbc24502b97a3, type: 3}
+  - {fileID: 1388676587579943493, guid: 922dbf774655f89428b4349eb4589dbb, type: 3}
   targets: []
   nearestTarget: {fileID: 0}
+  inGarden: 0
 --- !u!114 &-2567305193330222796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,6 +162,7 @@ MonoBehaviour:
   health: 000000000000000000000000
   maxHealth: 000000000000000000000000
   invincible: 0
+  immortal: 0
   coreOrange: 0
   coreGreen: 0
   coreWhite: 0
@@ -167,6 +178,7 @@ MonoBehaviour:
   - {fileID: 1437608745526151966, guid: 252e8bd380138ed49b6ba847fbd24881, type: 3}
   - {fileID: 1437608745526151966, guid: eae0559c7ec8ea34fbdf1203f7f94361, type: 3}
   - {fileID: 1437608745526151966, guid: 5f187f9c523c18b43b72ad827d888b96, type: 3}
+  trail: {fileID: 5700309604848416015}
   coreOrange_IMG: {fileID: 0}
   coreGreen_IMG: {fileID: 0}
   coreWhite_IMG: {fileID: 0}

@@ -5,12 +5,20 @@ using UnityEngine;
 public class Melee : MonoBehaviour
 {
     [SerializeField] private int damage;
+    public Transform playerTrans;
     
     
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(SelfDestruct());
+    }
+
+    private void Update() {
+        if (playerTrans != null){
+            transform.position = playerTrans.position;
+            transform.rotation = playerTrans.rotation;
+        }
     }
 
     private void OnTriggerEnter(Collider other) {

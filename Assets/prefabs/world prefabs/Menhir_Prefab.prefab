@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &492177759
 RectTransform:
   m_ObjectHideFlags: 0
@@ -66,10 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'The Throne lies empty
-
-
-    The path to immortality remains blocked.'
+  m_text: U R D D
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 09028b2b8819de744927e8497fcbcc52, type: 2}
   m_sharedMaterial: {fileID: 2065427601479437174, guid: 09028b2b8819de744927e8497fcbcc52, type: 2}
@@ -132,7 +129,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 227.45854, y: -235.26546, z: 230.8261, w: -249.24226}
+  m_margin: {x: 227.45854, y: 117.27952, z: 230.8261, w: -249.24226}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -155,7 +152,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1870931762
 RectTransform:
   m_ObjectHideFlags: 0
@@ -204,13 +201,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'The Throne lies empty
-
-
-    The path to immortality remains blocked.'
+  m_text: "U R \n\nD D"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 09028b2b8819de744927e8497fcbcc52, type: 2}
+  m_sharedMaterial: {fileID: 2065427601479437174, guid: 09028b2b8819de744927e8497fcbcc52, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -270,7 +264,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 363.30933, y: -414.6487, z: 400.86414, w: -597.5505}
+  m_margin: {x: 363.30933, y: 340.31784, z: 400.86414, w: -597.5505}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -548,7 +542,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6226772069692003843
 RectTransform:
   m_ObjectHideFlags: 0

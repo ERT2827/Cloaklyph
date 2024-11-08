@@ -13,7 +13,7 @@ public class Dasher : MonoBehaviour
     public Vector3 centrePoint; //Set to world 0 if you want him
     // to be stupid
 
-    Vector3 targetPoint;
+    [SerializeField] private Vector3 targetPoint;
 
     [Header("Shooting parameters")]
     [SerializeField] private GameObject projectilePrefab;
@@ -40,7 +40,7 @@ public class Dasher : MonoBehaviour
         
         if(cooldownTimer > cooldown){
             cooldownTimer = 0;
-            Shoot();
+            StartCoroutine(BurstShoot());
         }
 
         if(pointDistance < 1f){
@@ -58,12 +58,17 @@ public class Dasher : MonoBehaviour
             //the 1.0f is the max distance from the random point to a point on the navmesh, might want to increase if range is big
             //or add a for loop like in the documentation
             agent.SetDestination(hit.position);
+            targetPoint = hit.position;
         }else{
             FindPoint();
         }
     }
 
-    void Shoot(){
-        GameObject bolt = Instantiate(projectilePrefab, transform.GetChild(1).position, Quaternion.identity) as GameObject;
+    IEnumerator BurstShoot(){
+        GameObject bolt1 = Instantiate(projectilePrefab, transform.GetChild(1).position, Quaternion.identity) as GameObject;
+
+        yield return new WaitForSeconds(1.5f);
+
+        GameObject bolt2 = Instantiate(projectilePrefab, transform.GetChild(1).position, Quaternion.identity) as GameObject;
     }
 }

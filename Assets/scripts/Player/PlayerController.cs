@@ -29,17 +29,24 @@ public class PlayerController : MonoBehaviour
     [Header("Technical nessecities")]
 
     [SerializeField] private LayerMask dodgeCollideLayers;
+    private PlayerHealth playerHealth;
+    public bool controlsDisabled;
     
     // Start is called before the first frame update
     void Start()
     {
         playerModel = transform.GetChild(0).gameObject;
         arbees = gameObject.GetComponent<Rigidbody>();
+        playerHealth = gameObject.GetComponent<PlayerHealth>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(controlsDisabled){
+            return;
+        }
+        
         move = edgeGuard();
         
         
@@ -140,9 +147,13 @@ public class PlayerController : MonoBehaviour
 
         dodging = true;
 
+        playerHealth.invincible = true;
+
         yield return new WaitForSeconds(dodgeDuration);
 
         dodging = false;
+
+        playerHealth.invincible = false;
     }
 
     IEnumerator DodgeCoolDown(){

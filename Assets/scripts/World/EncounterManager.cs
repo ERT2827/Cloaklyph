@@ -6,6 +6,7 @@ public class EncounterManager : MonoBehaviour
 {
     [SerializeField] private float exitCooldown = 10f;
     [SerializeField] private List<GameObject> minions = new List<GameObject>();
+    [SerializeField] private List<Renderer> fadeObjects = new List<Renderer>();
 
     [SerializeField] private bool combatComplete = false;
     
@@ -31,6 +32,14 @@ public class EncounterManager : MonoBehaviour
         if (combatComplete)
         {
             UniversalVariables.playerState = PlayerState.Exploring;
+
+            foreach(Renderer r in fadeObjects){
+                RevertMaterialToOpaque(r.material);
+                Color color = r.material.color;
+                color.a = 1f;
+                r.material.color = color;
+            }
+
             gameObject.SetActive(false);
         }
     }
@@ -48,6 +57,13 @@ public class EncounterManager : MonoBehaviour
                 }
             }
 
+            foreach(Renderer r in fadeObjects){
+                SetMaterialToFade(r.material);
+                Color color = r.material.color;
+                color.a = 0.3f;
+                r.material.color = color;
+            }
+
             other.gameObject.GetComponent<SpellController>().AddTargets();
         }
     }
@@ -55,6 +71,38 @@ public class EncounterManager : MonoBehaviour
     private void OnTriggerExit(Collider other) {
         if(other.gameObject.tag == "Player"){
             StartCoroutine(ExitTimer());
+        }
+    }
+
+    void SetMaterialToFade(Material material)
+    {
+        // Check if the shader is compatible (e.g., Standard Shader)
+        if (material.shader.name == "Standard")
+        {
+            // Change the rendering mode to Fade
+            material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+            material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+            material.SetInt("_ZWrite", 0);
+            material.DisableKeyword("_ALPHATEST_ON");
+            material.EnableKeyword("_ALPHABLEND_ON");
+            material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+            material.renderQueue = 3000; // Queue for transparent
+        }
+    }
+
+    public void RevertMaterialToOpaque(Material material)
+    {
+        // Check if the shader is compatible
+        if (material.shader.name == "Standard")
+        {
+            // Change the rendering mode to Opaque
+            material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
+            material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.Zero);
+            material.SetInt("_ZWrite", 1);
+            material.DisableKeyword("_ALPHATEST_ON");
+            material.DisableKeyword("_ALPHABLEND_ON");
+            material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+            material.renderQueue = -1; // Reset to default (opaque)
         }
     }
 

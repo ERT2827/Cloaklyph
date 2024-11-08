@@ -5,16 +5,21 @@ using UnityEngine;
 public class ShieldController : MonoBehaviour
 {
     [SerializeField] private Transform owner;
-    [SerializeField] private int elementAlignment;
 
     private void Start() {
         owner = transform.parent;
 
         if(owner.GetComponent<HammerTime>() != null) {
             owner.GetComponent<HammerTime>().shield = gameObject;
+        }else if(owner.parent.GetComponent<WizardScript>() != null){
+            owner.parent.GetComponent<WizardScript>().wizShield = gameObject;
         }
 
         transform.SetParent(null);
+
+        if(owner.parent.GetComponent<WizardScript>() != null){
+            gameObject.SetActive(true);
+        }
     }
 
     private void Update() {
@@ -24,19 +29,5 @@ public class ShieldController : MonoBehaviour
         
         transform.position = owner.position;
         transform.rotation = owner.rotation;
-    }
-
-    private void OnCollisionEnter(Collision other) {
-        PlayerHealth PHP = other.gameObject.GetComponent<PlayerHealth>();
-        
-        if(other.gameObject.tag == "Player" && PHP != null){
-            Debug.Log(PHP);
-            // PHP.TakeDamage(elementAlignment);
-        }
-
-        if (other.gameObject.tag == "Targetable"){
-            Physics.IgnoreCollision(gameObject.GetComponent<Collider>(), other.gameObject.GetComponent<Collider>());
-        }
-        
     }
 }

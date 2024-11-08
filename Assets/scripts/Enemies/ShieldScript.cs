@@ -63,9 +63,10 @@ public class ShieldScript : MonoBehaviour
             //or add a for loop like in the documentation
             agent.SetDestination(targetPoint);
             curMode = AI_Mode.Move;
-        }else{
-            setPosition();
         }
+        // else{
+        //     setPosition();
+        // }
     
     }
 }

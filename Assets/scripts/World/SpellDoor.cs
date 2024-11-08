@@ -23,12 +23,12 @@ public class SpellDoor : MonoBehaviour
         bigPic.transform.GetChild(1).gameObject.GetComponent<Image>().sprite = doorImage;
 
         startingpos = transform.position;
-        endpos = transform.position + new Vector3(0, -15f, 0);
+        endpos = transform.position + new Vector3(0, -25f, 0);
     }
 
     private void Update() {
         if(unlocked){
-            transform.position = Vector3.Lerp(transform.position, endpos, Time.deltaTime * 0.1f);
+            transform.position = Vector3.Lerp(transform.position, endpos, Time.deltaTime * 0.3f);
         }
 
         if(transform.position == endpos){
@@ -51,7 +51,7 @@ public class SpellDoor : MonoBehaviour
     }
 
     public void SpellChecker(string comper){
-        if(comper == spellCheck){
+        if(comper.Contains(spellCheck)){
             unlocked = true;
             // Destroy(transform.GetChild(0).gameObject); 
         }

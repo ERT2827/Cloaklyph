@@ -11,6 +11,7 @@ public class SpellController : MonoBehaviour
     [SerializeField] private GameObject SSP; //Spell Spawn Point, shortened for convenience
     [SerializeField] private float coolDown;
     [SerializeField] private float coolDownTimer;
+    [SerializeField] private PlayerHealth playerHealth;
     bool onCoolDown = false;
 
     [Header("Input System")]
@@ -26,9 +27,15 @@ public class SpellController : MonoBehaviour
     [Header("Nearest Detection")]
     [SerializeField] private List<GameObject> targets = new List<GameObject>(); 
     public GameObject nearestTarget;
+    public bool inGarden;
+
+    [Header("Immortal Effects")]
+    [SerializeField] private GameObject[] colorParts; 
+    [SerializeField] private Material purple_Mat;
 
     private void Awake() {
         AddTargets();
+        playerHealth = gameObject.GetComponent<PlayerHealth>();
         
         
         //Add spells to the list
@@ -45,6 +52,11 @@ public class SpellController : MonoBehaviour
         spellsList.Add(Melee);
         spellsList.Add(BasicShot);
         spellsList.Add(SniperShot);
+        spellsList.Add(DeathGarden);
+        spellsList.Add(Immortality);
+        spellsList.Add(Telekill);
+        spellsList.Add(Laser);
+        spellsList.Add(Mine);
     }
 
     private void Update() {
@@ -190,7 +202,7 @@ public class SpellController : MonoBehaviour
     }
 
     void SelfHeal(){
-        gameObject.GetComponent<PlayerHealth>().HealSpell();
+        playerHealth.HealSpell();
         // Debug.Log("Benis 9000");
     }
 
@@ -198,7 +210,7 @@ public class SpellController : MonoBehaviour
         Quaternion q = Quaternion.Euler(90, transform.rotation.y, 0);
         
         GameObject melee = Instantiate(spellPrefabs[10], SSP.transform.position, transform.rotation) as GameObject;
-        melee.transform.SetParent(gameObject.transform);
+        melee.GetComponent<Melee>().playerTrans = gameObject.transform;
     }
 
     void BasicShot(){
@@ -208,5 +220,63 @@ public class SpellController : MonoBehaviour
     
     void SniperShot(){
         GameObject bolt = Instantiate(spellPrefabs[12], SSP.transform.position, Quaternion.identity) as GameObject; 
+    }
+
+    void DeathGarden(){
+        Quaternion q = Quaternion.Euler(-90, 0, 0);
+        
+        GameObject domain = Instantiate(spellPrefabs[13], SSP.transform.position, q) as GameObject; 
+
+        DomainScript ds = domain.GetComponent<DomainScript>();
+        ds.SC = gameObject.GetComponent<SpellController>();
+        StartCoroutine(ds.SelfDestruct());
+    }
+
+    void Immortality(){
+        if(inGarden){
+            playerHealth.immortal = true;
+
+            foreach (GameObject g in colorParts)
+            {
+                g.GetComponent<Renderer>().material = purple_Mat;
+            }
+        }else{
+            GameObject fizzle = Instantiate(spellPrefabs[14], SSP.transform.position, Quaternion.identity) as GameObject; 
+        }
+    }
+
+    void Telekill(){
+        Transform tempfarthest = null;
+        float farthestDistance = 0; //IDK if that is correct spelling but now I like it because fart-hest hehe
+
+        
+        
+        foreach(GameObject i in targets){
+            if(i != null  && i.activeSelf){
+                float d = Vector3.Distance(i.transform.position, transform.position);
+                if(d > farthestDistance && d < 100){
+                    tempfarthest = i.transform;
+                    farthestDistance = d;
+                }
+            }
+        }
+
+        if(farthestDistance < 100f && tempfarthest != null){
+            playerHealth.invincible = true;
+            StartCoroutine(playerHealth.TeleKillMode());
+            transform.position = tempfarthest.position;
+            tempfarthest.gameObject.GetComponent<EnemyHealth>().TakeDamage(6, 1);
+        }else{
+            GameObject fizzle = Instantiate(spellPrefabs[15], SSP.transform.position, Quaternion.identity) as GameObject; 
+        }
+    }
+
+    void Laser(){
+        GameObject laser = Instantiate(spellPrefabs[16], SSP.transform.position, transform.rotation) as GameObject;
+        laser.transform.SetParent(gameObject.transform);
+    }
+
+    void Mine(){
+       Instantiate(spellPrefabs[17], SSP.transform.position, transform.rotation); 
     }
 }

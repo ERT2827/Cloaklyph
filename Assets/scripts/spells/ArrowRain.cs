@@ -6,6 +6,10 @@ public class ArrowRain : MonoBehaviour
 {
     [SerializeField] private int projectileDamage = 0;
     
+    private void Start() {
+        StartCoroutine(AutoDestruct());
+    }
+    
     private void OnCollisionEnter(Collision other) {
         if(other.gameObject.tag == "Targetable"){
             EnemyHealth EHP = other.gameObject.GetComponent<EnemyHealth>();
@@ -17,5 +21,11 @@ public class ArrowRain : MonoBehaviour
         }else if (other.gameObject.layer == 6){
             Destroy(gameObject);
         }
+    }
+
+    IEnumerator AutoDestruct(){
+        yield return new WaitForSeconds(7f);
+
+        Destroy(gameObject);
     }
 }

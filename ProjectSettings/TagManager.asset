@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Targetable
   - blimbleWimble
+  - Player_Proj
+  - Enemy_Proj
+  - Enemy_Shield
   layers:
   - Default
   - TransparentFX

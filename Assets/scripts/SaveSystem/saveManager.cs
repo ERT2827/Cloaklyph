@@ -98,6 +98,23 @@ public class saveManager : MonoBehaviour
     public void IncreaseHealth(int UN){ //UN = Upgrade Number
         if(!healthUpgrades[UN]){
             healthUpgrades[UN] = true;
+
+            playerHealth.coreOrange = healthUpgrades[0];
+            playerHealth.coreGreen = healthUpgrades[1];
+            playerHealth.coreWhite = healthUpgrades[2];
+
+            playerHealth.outerOrange = healthUpgrades[3];
+            playerHealth.outerGreen = healthUpgrades[4];
+            playerHealth.outerWhite = healthUpgrades[5];
+
+            if(UN > 2){
+                UN -= 3;
+                Debug.Log(UN);
+                playerHealth.health[UN] = playerHealth.maxHealth[UN];
+            }else{
+                playerHealth.health[UN] = playerHealth.maxHealth[UN];
+            }
+
             saveGame();
         }
     }

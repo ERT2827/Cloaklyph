@@ -9,12 +9,13 @@ public class PlayerHealth : MonoBehaviour
     [Header("Health")]
 
     public int[] health = new int[3];
-    [SerializeField] private int[] maxHealth = new int[3];
+    public int[] maxHealth = new int[3];
     
     
-
+    [Header("Bools")]
     bool alive = true;
     public bool invincible = false; //Fighting the urge to call this variable "the guy from fortnite"
+    public bool immortal = false;
 
     [Header("Health Upgrades")]
     public bool coreOrange;
@@ -35,6 +36,8 @@ public class PlayerHealth : MonoBehaviour
     int healthComp = -1; //For the health comparison
 
     [SerializeField] private GameObject[] hitEffects = new GameObject[3];
+
+    [SerializeField] private TrailRenderer trail;
 
     [Header("UI Elements")]
     [SerializeField] private GameObject coreOrange_IMG;
@@ -61,6 +64,11 @@ public class PlayerHealth : MonoBehaviour
 
         int totalHealth = health[0] + health[1] + health[2];
 
+        if (!alive)
+        {
+            SceneManager.LoadScene(reloadScene, LoadSceneMode.Single);
+        }
+
         if(totalHealth != healthComp){
             healthComp = totalHealth;
             UpdateUI();
@@ -71,15 +79,23 @@ public class PlayerHealth : MonoBehaviour
             lastGround = transform.position;
         }
 
-        if (!alive)
-        {
-            SceneManager.LoadScene(reloadScene, LoadSceneMode.Single);
+        if(immortal){
+            trail.startColor = new Color (0.35f, 0.1294117f, 0.517647f);
+            trail.endColor = new Color (0.35f, 0.1294117f, 0.517647f);
+        }else if(invincible){
+            trail.startColor = Color.green;
+            trail.endColor = Color.green;
+        }else{
+            trail.startColor = Color.white;
+            trail.endColor = Color.white;
         }
+
+        
 
     }
 
     public void TakeDamage(int element){
-        if(invincible){
+        if(invincible || immortal){
             return;
         }
 
@@ -131,11 +147,11 @@ public class PlayerHealth : MonoBehaviour
         if (outerWhite) maxHealth[2] += 1;
     }
 
-    private void Update(int orange, int green, int white) {
-        health[0] = orange;
-        health[1] = green;
-        health[2] = white;
-    }
+    // private void UpdateHealth(int orange, int green, int white) {
+    //     health[0] = orange;
+    //     health[1] = green;
+    //     health[2] = white;
+    // }
 
     void UpdateUI(){
         if(health[0] > 0){
@@ -198,6 +214,15 @@ public class PlayerHealth : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         invincible = false;
+    }
+
+    public IEnumerator TeleKillMode(){
+        invincible = true;
+
+        yield return new WaitForSeconds(1f);
+
+        invincible = false;
+
     }
     // public IEnumerator HealSpellDeluxe(){}
 }

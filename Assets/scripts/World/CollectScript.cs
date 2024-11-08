@@ -23,6 +23,7 @@ public class CollectScript : MonoBehaviour
     private void OnTriggerEnter(Collider other) {
         if (other.gameObject.tag == "Player"){
             pentagon.SetActive(false);
+            Debug.Log(alterNumber);
             SnM.IncreaseHealth(alterNumber);
         }
     }

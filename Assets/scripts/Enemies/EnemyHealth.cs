@@ -11,7 +11,7 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] private int weakness;
 
     [Header("Other Systems")]
-    [SerializeField] private GameObject[] hitEffects = new GameObject[3];
+    [SerializeField] private GameObject[] hitEffects = new GameObject[4];
 
     private GameObject player; //It needs the player object to
     //add it to the list of targets
@@ -46,7 +46,9 @@ public class EnemyHealth : MonoBehaviour
 
 
         if (currentHealth <= 0){
-            player.GetComponent<PlayerHealth>().KillHeal(alignment);
+            if(alignment != 4){
+                player.GetComponent<PlayerHealth>().KillHeal(alignment);
+            }
             Destroy(gameObject);
         }
         
@@ -63,5 +65,9 @@ public class EnemyHealth : MonoBehaviour
             agent.Warp(transform.position + new Vector3(0, 4f, 0));
         }
         
+    }
+
+    public int GetHealth(){
+        return currentHealth;
     }
 }

@@ -23,6 +23,10 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("Hub", LoadSceneMode.Single);
     }
 
+    public void LoadMainMenu(){
+        SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
+    }
+
     public void ResetButton(){
         SM.resetprogress();
     }
@@ -30,4 +34,6 @@ public class MainMenu : MonoBehaviour
     public void QuitButton(){
         Application.Quit();
     }
+
+    
 }

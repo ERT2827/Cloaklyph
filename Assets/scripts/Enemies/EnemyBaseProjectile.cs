@@ -31,7 +31,7 @@ public class EnemyBaseProjectile : MonoBehaviour
             PHP.TakeDamage(elementAlignment);
         }
 
-        if (other.gameObject.tag == "Targetable"){
+        if (other.gameObject.tag == "Targetable" || other.gameObject.tag == "Enemy_Shield"){
             Physics.IgnoreCollision(gameObject.GetComponent<Collider>(), other.gameObject.GetComponent<Collider>());
         }
         

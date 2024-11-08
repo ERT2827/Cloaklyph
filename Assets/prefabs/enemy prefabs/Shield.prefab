@@ -178,9 +178,10 @@ GameObject:
   - component: {fileID: 229484550937924209}
   - component: {fileID: 1096097005561994971}
   - component: {fileID: 1096097005561994970}
+  - component: {fileID: 8218025558015888491}
   m_Layer: 7
   m_Name: Shield
-  m_TagString: Untagged
+  m_TagString: Enemy_Shield
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -263,6 +264,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.00813808, y: 0.019615708, z: 0.007201395}
   m_Center: {x: -0.0059309467, y: 0.000000002854212, z: 0.0036006973}
+--- !u!114 &8218025558015888491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1983774100890081057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a83968e81de5e84c8f26fd9f017b022, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  elementAlignment: 1
 --- !u!1 &2379444175389737679
 GameObject:
   m_ObjectHideFlags: 0
@@ -558,7 +572,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   owner: {fileID: 0}
-  elementAlignment: 3
 --- !u!1 &8866994346976045974
 GameObject:
   m_ObjectHideFlags: 0
@@ -673,6 +686,7 @@ MonoBehaviour:
   - {fileID: 1437608745526151966, guid: 252e8bd380138ed49b6ba847fbd24881, type: 3}
   - {fileID: 1437608745526151966, guid: eae0559c7ec8ea34fbdf1203f7f94361, type: 3}
   - {fileID: 1437608745526151966, guid: 5f187f9c523c18b43b72ad827d888b96, type: 3}
+  - {fileID: 546252742061742400, guid: 2c277c50007aad345af6c48ebd8255d6, type: 3}
 --- !u!114 &8632430376858048194
 MonoBehaviour:
   m_ObjectHideFlags: 0

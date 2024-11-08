@@ -26,13 +26,19 @@ public class ProjectileBullet : MonoBehaviour
             PHP.TakeDamage(elementAlignment);
         }
 
-        if (other.gameObject.tag == "Targetable"){
+        if (other.gameObject.tag == "Targetable" || other.gameObject.tag == "Enemy_Proj"){
             Physics.IgnoreCollision(gameObject.GetComponent<Collider>(), other.gameObject.GetComponent<Collider>());
         }
         
-        if(other.gameObject.tag != "Targetable"){
+        if(other.gameObject.tag != "Targetable" || other.gameObject.tag != "Enemy_Proj"){
             Debug.Log(other.gameObject.name);
             Destroy(gameObject);
+        }
+    }
+
+    private void OnCollisionStay(Collision other) {
+        if (other.gameObject.tag == "Targetable" || other.gameObject.tag == "Enemy_Proj"){
+            Physics.IgnoreCollision(gameObject.GetComponent<Collider>(), other.gameObject.GetComponent<Collider>());
         }
     }
 
