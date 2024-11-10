@@ -20,10 +20,12 @@ public class saveManager : MonoBehaviour
 
     public string next_Level;
     public Vector3 load_Location;
+    public string noteBook_Text;
 
     [Header("Friends of Save Manager")]
     [SerializeField] private GameObject player;
     [SerializeField] private PlayerHealth playerHealth;
+    [SerializeField] private PauseScreen pauseScreen;
 
 
     private void Start() {
@@ -34,6 +36,10 @@ public class saveManager : MonoBehaviour
         if(player != null){
             playerHealth = player.GetComponent<PlayerHealth>();
         }
+
+        if(GameObject.Find("playerUI") != null){
+            pauseScreen = GameObject.Find("playerUI").GetComponent<PauseScreen>();
+        }
         
         loadGame();
 
@@ -43,6 +49,7 @@ public class saveManager : MonoBehaviour
 
             saveGame();
         }
+
         
     }
 
@@ -61,7 +68,10 @@ public class saveManager : MonoBehaviour
         healthUpgrades[5] = data.healthUpgrades[5];
 
         // Loadlocation and scene functions
-        load_Location = new Vector3(data.load_LocationX, data.load_LocationY, data.load_LocationZ); 
+        load_Location = new Vector3(data.load_LocationX, data.load_LocationY, data.load_LocationZ);
+
+        //Notebook function
+        noteBook_Text = data.noteBook_Text; 
 
         if(player != null){
             //Set player variables
@@ -74,7 +84,14 @@ public class saveManager : MonoBehaviour
             playerHealth.outerWhite = healthUpgrades[5];
 
             playerHealth.SetHealth();
-        }        
+        }
+
+        // Debug.Log
+
+        if(pauseScreen != null){
+            // Debug.Log("notebook text is " + noteBook_Text);
+            pauseScreen.SetNotes(noteBook_Text);
+        }       
     }
 
     public void resetprogress(){
@@ -90,6 +107,8 @@ public class saveManager : MonoBehaviour
         healthSave[2] = 0;
 
         load_Location = new Vector3(0, 0, 0);
+
+
 
 
         saveGame();
@@ -127,5 +146,9 @@ public class saveManager : MonoBehaviour
 
         SceneManager.LoadScene(next_Level, LoadSceneMode.Single);
 
+    }
+
+    public void SetNoteBook(string notes){
+        noteBook_Text = notes;
     }
 }

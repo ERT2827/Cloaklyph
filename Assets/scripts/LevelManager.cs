@@ -14,5 +14,7 @@ public class LevelManager : MonoBehaviour
             UniversalVariables.playerState = PlayerState.Exploring;
         }
 
+        // Debug.Log(UniversalVariables.playerState);
+
     }
 }

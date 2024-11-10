@@ -24,6 +24,8 @@ public class Playerdata {
     public float load_LocationX;
     public float load_LocationY;
     public float load_LocationZ;
+
+    public string noteBook_Text;
     
     public Playerdata(saveManager Player){
         healthUpgrades[0] = Player.healthUpgrades[0];
@@ -38,6 +40,9 @@ public class Playerdata {
         load_LocationX = Player.load_Location.x;
         load_LocationY = Player.load_Location.y;
         load_LocationZ = Player.load_Location.z;
+
+        noteBook_Text = Player.noteBook_Text;
+        // Debug.Log(Player.noteBook_Text);
 
     }
 

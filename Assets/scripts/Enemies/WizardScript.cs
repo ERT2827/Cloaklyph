@@ -97,13 +97,11 @@ public class WizardScript : MonoBehaviour
     void SpellCaster(){
         int attackPick;
         
-        // if(attackCount == 0 || attackCount == 6){
-        //     attackPick = attackCount;
-        // }else{
-        //     attackPick = Random.Range(0, 6);
-        // }
-
-        attackPick = attackCount;   
+        if(attackCount == 0 || attackCount == 6){
+            attackPick = attackCount;
+        }else{
+            attackPick = Random.Range(0, 6);
+        }
 
         if(attackPick == 0){ //Purplebolt
             Instantiate(projectiles[0], wizhardModal.transform.position, Quaternion.identity);
@@ -127,9 +125,13 @@ public class WizardScript : MonoBehaviour
             Instantiate(projectiles[5], wizhardModal.transform.position, Quaternion.identity);
         }else if(attackPick == 6){ //Shield
             StartCoroutine(EnableShield());
+        }else if(attackPick == 7){ //Slug
+            Vector3 spawnPoint = wizhardModal.transform.position + new Vector3(0, -8f, 0);
+        
+            GameObject slug = Instantiate(projectiles[6], spawnPoint, Quaternion.identity) as GameObject;
         }
 
-        if(attackCount < 6){
+        if(attackCount < 7){
             attackCount += 1;
         }else{
             attackCount = 0;
@@ -169,7 +171,16 @@ public class WizardScript : MonoBehaviour
 
         HandAnimator(true);
 
-        SpellCaster();
+        if(wizHealth.GetHealth() < 100){
+            SpellCaster();
+            SpellCaster();
+        }else if(wizHealth.GetHealth() < 50){
+            SpellCaster();
+            SpellCaster();
+            SpellCaster();
+        }else{
+            SpellCaster();
+        }
 
         yield return new WaitForSeconds(attackDuration);
 

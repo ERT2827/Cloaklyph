@@ -3361,6 +3361,7 @@ MonoBehaviour:
   - {fileID: 5633298056915047813, guid: db2072f2e376ac8458ca12655d0af2dc, type: 3}
   - {fileID: 7327969454320245224, guid: 2dc0fe689f158784095fe79089c02d23, type: 3}
   - {fileID: 7327969454320245224, guid: 2dc0fe689f158784095fe79089c02d23, type: 3}
+  - {fileID: 6098319850572714341, guid: f301e47f961a09f4281032eaf18e2d6d, type: 3}
   player: {fileID: 0}
   wizShield: {fileID: 0}
   areaHolder: {fileID: 649798223}
@@ -4830,7 +4831,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9731246b1b4217149a89c5361e69ff8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
+  maxHealth: 150
   currentHealth: 0
   alignment: 0
   weakness: 0

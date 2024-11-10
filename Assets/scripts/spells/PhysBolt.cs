@@ -31,7 +31,7 @@ public class PhysBolt : MonoBehaviour
             EHP.TakeDamage(damage, element);
         }
         
-        if(other.gameObject.tag != "Player" || other.gameObject.tag != "Player_Proj"){
+        if(other.gameObject.tag != "Player" && other.gameObject.tag != "Player_Proj"){
             Debug.Log(other.gameObject.name);
             Destroy(gameObject);
         }

@@ -93,15 +93,6 @@ public class PlayerController : MonoBehaviour
         transform.Translate(movement * moveSpeed * Time.deltaTime, Space.World);
     }
 
-    private void OnCollisionEnter(Collision other) {
-        
-        if(other.gameObject.layer == 7){
-            dodging = false;
-            StartCoroutine(DodgeCoolDown());
-            Debug.Log("Hit " + other.gameObject.layer);
-        }
-    }
-
     Vector2 edgeGuard(){
 
         Vector2 M = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
@@ -154,6 +145,8 @@ public class PlayerController : MonoBehaviour
         dodging = false;
 
         playerHealth.invincible = false;
+
+        StartCoroutine(DodgeCoolDown());
     }
 
     IEnumerator DodgeCoolDown(){
