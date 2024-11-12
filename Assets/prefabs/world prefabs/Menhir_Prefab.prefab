@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 492177761}
   - component: {fileID: 492177760}
   m_Layer: 7
-  m_Name: Text (TMP)
+  m_Name: MenhirUnderText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 1870931764}
   - component: {fileID: 1870931763}
   m_Layer: 7
-  m_Name: Text (TMP)
+  m_Name: MenhirOverText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -750,7 +750,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menhirImage: {fileID: 0}
-  smallPic: {fileID: 6226772068951651296}
+  smallPic: {fileID: 6226772069281607449}
   bigPic: {fileID: 6226772069692003840}
 --- !u!65 &6226772070144564133
 BoxCollider:

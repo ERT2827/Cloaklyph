@@ -9,12 +9,13 @@ public class PauseScreen : MonoBehaviour
     [SerializeField] GameObject pauseScreen;
     public string noteBookText;
     [SerializeField] TMP_InputField noteBook;
-    [SerializeField] TMP_Text textDisplay;
+    // [SerializeField] TMP_Text textDisplay;
     bool isPaused = false;
     saveManager saveManager;
 
     private void Start() {
         saveManager = GameObject.Find("saveManager").GetComponent<saveManager>();
+        Resume();
     }
     
     void Update()

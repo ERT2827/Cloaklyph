@@ -15,7 +15,10 @@ public class ProjectileBullet : MonoBehaviour
         StartCoroutine(Solidify());
         StartCoroutine(AutoDestruct());
 
-        ysl.velocity = transform.forward * speed;
+        Quaternion targetRotation = Quaternion.LookRotation(ysl.velocity.normalized);
+        transform.rotation = targetRotation;
+
+        // ysl.velocity = transform.forward * speed;
     }
 
     private void OnCollisionEnter(Collision other) {
@@ -30,8 +33,8 @@ public class ProjectileBullet : MonoBehaviour
             Physics.IgnoreCollision(gameObject.GetComponent<Collider>(), other.gameObject.GetComponent<Collider>());
         }
         
-        if(other.gameObject.tag != "Targetable" || other.gameObject.tag != "Enemy_Proj"){
-            Debug.Log(other.gameObject.name);
+        if(other.gameObject.tag != "Targetable" && other.gameObject.tag != "Enemy_Proj"){
+            Debug.Log("I was destroyed by" + other.gameObject.name);
             Destroy(gameObject);
         }
     }

@@ -17,6 +17,9 @@ public class SpellController : MonoBehaviour
     [Header("Input System")]
     [SerializeField] private string inputHistory = "";
     [SerializeField] private List<string> spellInputs;
+    [SerializeField] private float inputClearTime;
+    float inputClearTimer;
+    int inputCount;
 
     [Header("Spell List")]
     [SerializeField] private List<SpellMethod> spellsList = new List<SpellMethod>();
@@ -57,6 +60,9 @@ public class SpellController : MonoBehaviour
         spellsList.Add(Telekill);
         spellsList.Add(Laser);
         spellsList.Add(Mine);
+        spellsList.Add(ShotGun);
+        spellsList.Add(DashCheat);
+        spellsList.Add(SuperMelee);
     }
 
     private void Update() {
@@ -76,21 +82,28 @@ public class SpellController : MonoBehaviour
                 {
                     spellsList[CSN]();
                 }
-                
-                inputHistory = "";
                 coolDownTimer = coolDown;
+
+                //Reset input timer
+                inputHistory = "";
+                inputClearTimer = 0;
+                inputCount = 0;
             }
         }
 
         // Arrow Checks
         if (Input.GetKeyDown(KeyCode.LeftArrow)){
             inputHistory += "Left";
+            inputCount += 1;
         }else if (Input.GetKeyDown(KeyCode.RightArrow)){
             inputHistory += "Right";
+            inputCount += 1;
         }else if (Input.GetKeyDown(KeyCode.UpArrow)){
             inputHistory += "Up";
+            inputCount += 1;
         }else if (Input.GetKeyDown(KeyCode.DownArrow)){
             inputHistory += "Down";
+            inputCount += 1;
         }
     }
 
@@ -102,6 +115,8 @@ public class SpellController : MonoBehaviour
         if(targets.Count <= 0){
             AddTargets();
         }
+
+        InputClearer();
     }
 
 
@@ -150,6 +165,18 @@ public class SpellController : MonoBehaviour
             if(!targets.Contains(i)){
                 targets.Add(i);
             }
+        }
+    }
+
+    void InputClearer(){
+        if(inputHistory != ""){
+            inputClearTimer += Time.deltaTime;
+        }
+
+        if(inputClearTime < inputClearTimer || inputCount > 13){
+            inputHistory = "";
+            inputClearTimer = 0;
+            inputCount = 0;
         }
     }
 
@@ -278,5 +305,17 @@ public class SpellController : MonoBehaviour
 
     void Mine(){
        Instantiate(spellPrefabs[17], SSP.transform.position, transform.rotation); 
+    }
+
+    void ShotGun(){
+        GameObject shotgun = Instantiate(spellPrefabs[18], SSP.transform.position, transform.rotation) as GameObject;
+    }
+
+    void DashCheat(){
+        gameObject.GetComponent<PlayerController>().dodgeCooldown = 0;
+    }
+
+    void SuperMelee(){
+        GameObject melee = Instantiate(spellPrefabs[20], SSP.transform.position, transform.rotation) as GameObject;
     }
 }

@@ -10,7 +10,7 @@ public class Menhir : MonoBehaviour
     [SerializeField] private GameObject bigPic;
     
     private void Start() {
-        smallPic.GetComponent<Image>().sprite = menhirImage;
+        smallPic.transform.GetChild(0).GetComponent<Image>().sprite = menhirImage;
         
         bigPic.transform.GetChild(1).gameObject.GetComponent<Image>().sprite = menhirImage;
     }

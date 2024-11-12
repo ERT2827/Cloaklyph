@@ -38,9 +38,6 @@ public class HammerTime : MonoBehaviour
 
         player = GameObject.Find("Player");
         hammer = transform.GetChild(0);
-        Attack();
-
-        SpawnBullets();
     }
 
     
@@ -53,7 +50,7 @@ public class HammerTime : MonoBehaviour
         if(cooldownTimer > cooldown && curMode == AI_Mode.Move){
             StartCoroutine(Attack());
         }else if(playerDist > aggroThreshold && curMode == AI_Mode.Move){
-            setPosition();
+            StartCoroutine(SetPosition());
         }
 
         if(hammer.rotation != hammerTarget){
@@ -70,7 +67,7 @@ public class HammerTime : MonoBehaviour
 
     }
 
-    void setPosition(){
+    IEnumerator SetPosition(){
         targetPoint = player.transform.position;
 
 
@@ -82,42 +79,47 @@ public class HammerTime : MonoBehaviour
             agent.SetDestination(targetPoint);
             curMode = AI_Mode.Move;
         }else{
-            setPosition();
+            yield return new WaitForSeconds(0.1f);
+            StartCoroutine(SetPosition());
         }
     
     }
 
-    void SpawnBullets(){
-        int bulletCount = 7;
-        int spread = 2;
+    
+    //This was the old way of me spawning bullets
+    // void SpawnBullets(){
+    //     int bulletCount = 7;
+    //     int spread = 2;
 
-        Quaternion newRot = transform.rotation;
+    //     Quaternion newRot = transform.rotation;
 
-        for (int i = 0; i < bulletCount; i++)
-        {
-            float addedOffset = (i - (bulletCount / 2) * spread) - spread;
+    //     for (int i = 0; i < bulletCount; i++)
+    //     {
+    //         float addedOffset = (i - (bulletCount / 2) * spread) - spread;
             
-            newRot = Quaternion.Euler(transform.rotation.x, transform.rotation.y + addedOffset, transform.rotation.z);
-            Instantiate(bulletPref, transform.position, newRot);
-        }
-    }
+    //         newRot = Quaternion.Euler(transform.rotation.x, transform.rotation.y + addedOffset, transform.rotation.z);
+    //         Instantiate(bulletPref, transform.position, newRot);
+    //     }
+    // }
 
     IEnumerator Attack(){
         shield.SetActive(false);
         hammerTarget = Quaternion.Euler(12, 0, 90);
 
-        SpawnBullets();
+        Vector3 spawnPoint = transform.position + transform.forward * 4 + transform.up * 2;
+
+        GameObject shotGun = Instantiate(bulletPref, spawnPoint, transform.rotation) as GameObject;
 
         curMode = AI_Mode.Act;
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.2f);
 
         curMode = AI_Mode.Move;
         
         shield.SetActive(true);
         hammerTarget = Quaternion.Euler(-90, 0, 90);
 
-        setPosition();
+        StartCoroutine(SetPosition());
         cooldownTimer = 0;
     }
 }

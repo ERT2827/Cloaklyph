@@ -5,7 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    [SerializeField] private saveManager SM;
+    [SerializeField] private saveManager SM; //Save manager script
+    [SerializeField] private GameObject mainSplash;
+    [SerializeField] private GameObject helpScreen;
     
     public void loadCombat(){
         SceneManager.LoadScene("combatTest", LoadSceneMode.Single);
@@ -33,6 +35,16 @@ public class MainMenu : MonoBehaviour
 
     public void QuitButton(){
         Application.Quit();
+    }
+
+    public void OpenHelp(){
+        mainSplash.SetActive(false);
+        helpScreen.SetActive(true);
+    }
+
+    public void CloseHelp(){
+        mainSplash.SetActive(true);
+        helpScreen.SetActive(false);
     }
 
     

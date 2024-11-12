@@ -13,8 +13,9 @@ public class fogScript : MonoBehaviour
     }
 
     private void Update() {
-        Transform playerPos = player.transform;
+        Vector3 playerPos = player.transform.position;
+        playerPos.y = 0;
 
-        transform.position = new Vector3(playerPos.position.x, 0, playerPos.position.z);
+        transform.position =  Vector3.Slerp(transform.position, playerPos, 0.01f);
     }
 }

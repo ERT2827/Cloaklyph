@@ -10,6 +10,11 @@ public class EncounterManager : MonoBehaviour
 
     [SerializeField] private bool combatComplete = false;
     
+    [Header("Prefight delay")]
+    [SerializeField] private float delayTime = 0;
+    [SerializeField] private MonoBehaviour[] delayScripts;
+
+
     private void Start() {
         int childcount = transform.childCount;
 
@@ -62,6 +67,10 @@ public class EncounterManager : MonoBehaviour
                 Color color = r.material.color;
                 color.a = 0.3f;
                 r.material.color = color;
+            }
+
+            if(delayTime > 0 && delayScripts.Length > 0){
+                StartCoroutine(ScriptDelayer());
             }
 
             other.gameObject.GetComponent<SpellController>().AddTargets();
@@ -119,6 +128,18 @@ public class EncounterManager : MonoBehaviour
         }
 
         UniversalVariables.playerState = PlayerState.Exploring;
+    }
+
+    IEnumerator ScriptDelayer(){ //AKA the procrastinator
+        foreach(MonoBehaviour m in delayScripts){
+            m.enabled = false;
+        }
+        
+        yield return new WaitForSeconds(delayTime);
+
+        foreach(MonoBehaviour m in delayScripts){
+            m.enabled = true;
+        }
     }
 
 }

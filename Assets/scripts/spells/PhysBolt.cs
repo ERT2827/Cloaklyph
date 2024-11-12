@@ -16,7 +16,14 @@ public class PhysBolt : MonoBehaviour
         StartCoroutine(Solidify());
         StartCoroutine(AutoDestruct());
 
-        ysl.velocity = transform.forward * speed;
+        // ysl.velocity = transform.forward * speed;
+    }
+
+    private void Update() {
+        
+        //This code makes it so that the projectile looks the way it is firing
+        Quaternion targetRotation = Quaternion.LookRotation(ysl.velocity.normalized);
+        transform.rotation = targetRotation; 
     }
 
     private void OnCollisionEnter(Collision other) {

@@ -2,35 +2,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Melee : MonoBehaviour
+public class SuperMelee : MonoBehaviour
 {
+    [SerializeField] private Rigidbody ysl; //Respect the classics
+    [SerializeField] private float speed;
     [SerializeField] private int damage;
-    public Transform playerTrans;
-    
+    [SerializeField] private int element;
     
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(SelfDestruct());
-    }
+        ysl = gameObject.GetComponent<Rigidbody>();
 
-    private void Update() {
-        if (playerTrans != null){
-            transform.position = playerTrans.position;
-            transform.rotation = playerTrans.rotation;
-        }
+        StartCoroutine(AutoDestruct());
+
+        ysl.velocity = speed * transform.forward;
     }
 
     private void OnTriggerEnter(Collider other) {
         EnemyHealth EHP = other.gameObject.GetComponent<EnemyHealth>();
 
         if(other.gameObject.tag == "Targetable" && EHP != null){
-            EHP.TakeDamage(damage, 1);
+            EHP.TakeDamage(damage, 3);
         }
     }
 
-    IEnumerator SelfDestruct(){
-        yield return new WaitForSeconds(0.7f);
+    IEnumerator AutoDestruct(){
+        yield return new WaitForSeconds(7f);
 
         Destroy(gameObject);
     }

@@ -5,23 +5,37 @@ using UnityEngine;
 public class ShotgunScript : MonoBehaviour
 {
     [SerializeField] private GameObject bulletPref;
+    [SerializeField] private int bulletCount = 7;
+    [SerializeField] private int spreadAngle = 30;
+    [SerializeField] private int projectileSpeed = 100;
     
     private void Start() {
         SpawnBullets();
     }
 
     void SpawnBullets(){
-        int bulletCount = 7;
-        int spread = 2;
-
-        Quaternion newRot = transform.rotation;
+        
 
         for (int i = 0; i < bulletCount; i++)
         {
-            float addedOffset = (i - (bulletCount / 2) * spread) - spread;
+            GameObject bullet = Instantiate(bulletPref, transform.position, Quaternion.identity);
+
+            // Calculate the spread angle for this bullet
+            float angle = -(spreadAngle / 2) + (i * (spreadAngle / (bulletCount - 1)));
+
+            // Debug.Log(angle);
             
-            newRot = Quaternion.Euler(transform.rotation.x, transform.rotation.y + addedOffset, transform.rotation.z);
-            Instantiate(bulletPref, transform.position, newRot);
+            // Convert the angle to a direction (in world space)
+            Vector3 direction = Quaternion.Euler(0, angle, 0) * transform.forward;
+
+            Debug.Log("Direction is" + direction);
+            
+            // Add velocity to the bullet
+            Rigidbody rb = bullet.GetComponent<Rigidbody>();
+            rb.velocity = direction * projectileSpeed;
+            // Debug.Log(rb.velocity);
         }
+
+        Destroy(gameObject);
     }
 }

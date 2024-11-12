@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
     Vector3 dodgeEnd;
     Vector3 dodgeDifference;
 
-    [SerializeField] private float dodgeCooldown;
+    public float dodgeCooldown;
     bool dodgeCoolingDown = false;
 
     [Header("Technical nessecities")]

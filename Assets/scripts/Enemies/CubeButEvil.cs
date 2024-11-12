@@ -12,10 +12,10 @@ public class CubeButEvil : MonoBehaviour
     }
 
     private void OnCollisionEnter(Collision other) {
-        if(other.gameObject.tag == "Targetable" && dangerous){
+        if(other.gameObject.tag == "Player" && dangerous){
             PlayerHealth PHP = other.gameObject.GetComponent<PlayerHealth>();
         
-            if(other.gameObject.tag == "Targetable" && PHP != null){
+            if(other.gameObject.tag == "Player" && PHP != null){
                 // Debug.Log(EHP);
                 PHP.TakeDamage(3);
                 Physics.IgnoreCollision(gameObject.GetComponent<Collider>(), other.gameObject.GetComponent<Collider>());

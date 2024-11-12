@@ -25,6 +25,12 @@ public class EnemyHealth : MonoBehaviour
         player.GetComponent<SpellController>().AddTargets();
     }
 
+    private void Update() {
+        if(transform.position.y < -10f){
+            Destroy(gameObject);
+        }
+    }
+
 
     public void TakeDamage(int DT, int EA){ //DT = Damage Taken, EA = Elemental Alignment
         if (EA == weakness){
@@ -46,7 +52,7 @@ public class EnemyHealth : MonoBehaviour
 
 
         if (currentHealth <= 0){
-            if(alignment != 4){
+            if(alignment <= 2){
                 player.GetComponent<PlayerHealth>().KillHeal(alignment);
             }
             Destroy(gameObject);

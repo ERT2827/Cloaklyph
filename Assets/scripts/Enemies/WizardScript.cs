@@ -12,11 +12,14 @@ public class WizardScript : MonoBehaviour
     [SerializeField] private Transform leftHand;
     [SerializeField] private Transform rightHand;
     [SerializeField] private float rotationSpeed = 1;
+    [SerializeField] private float prefightDelay = 3;
 
     bool wizardActive = false;
     bool fightOver = false;
 
     bool moving;
+
+    Quaternion hatTargetRot = Quaternion.Euler(-77, -70.5f, 70);
 
     [Header("Attacks")]
     [SerializeField] private float attackDuration = 1;
@@ -74,18 +77,18 @@ public class WizardScript : MonoBehaviour
             healthBar.SetActive(false);
         }
 
+        if(decorWizard.activeSelf == true){
+            Transform hat = decorWizard.transform.GetChild(1);
+            hat.localRotation = Quaternion.Slerp(hat.localRotation, hatTargetRot, 0.002f);
+        }
+
 
         
     }
 
     private void OnTriggerEnter(Collider other) {
         if(other.gameObject.tag == "Player" && !wizardActive){
-            decorWizard.SetActive(false);
-            wizhardModal.SetActive(true);
-            healthBar.SetActive(true);
-            StartCoroutine(StopAndAttack());
-            wizardActive = true;
-            wizShield.SetActive(false);
+            StartCoroutine(Prefight());
         }
     }
 
@@ -97,11 +100,13 @@ public class WizardScript : MonoBehaviour
     void SpellCaster(){
         int attackPick;
         
-        if(attackCount == 0 || attackCount == 6){
+        if(attackCount == 0 || attackCount == 6 || attackCount == 7){
             attackPick = attackCount;
         }else{
             attackPick = Random.Range(0, 6);
         }
+
+        // attackPick = 4; This forces an attack pick for testing
 
         if(attackPick == 0){ //Purplebolt
             Instantiate(projectiles[0], wizhardModal.transform.position, Quaternion.identity);
@@ -115,12 +120,14 @@ public class WizardScript : MonoBehaviour
             GameObject laser = Instantiate(projectiles[2], spawnPoint, Quaternion.identity) as GameObject;
             laser.transform.SetParent(gameObject.transform);
             laser.transform.localRotation = Quaternion.identity;
-        }else if(attackPick == 3){ //Brick, needs to be fixed
+        }else if(attackPick == 3){ //Brick
             Vector3 rock_loc = player.transform.position + new Vector3(0, 5, 0);
         
             GameObject rock = Instantiate(projectiles[3], rock_loc, Quaternion.identity) as GameObject;
         }else if(attackPick == 4){ //Shotgun
-            StartCoroutine(BurstFire());
+            Vector3 spawnPoint = wizhardModal.transform.position + new Vector3(0, -8f, 0);
+        
+            GameObject shotGun = Instantiate(projectiles[4], spawnPoint, Quaternion.identity) as GameObject;
         }else if(attackPick == 5){ //Homing
             Instantiate(projectiles[5], wizhardModal.transform.position, Quaternion.identity);
         }else if(attackPick == 6){ //Shield
@@ -212,6 +219,19 @@ public class WizardScript : MonoBehaviour
 
         cooldownTime = cooldownTimer / 3;
 
+        wizShield.SetActive(false);
+    }
+
+    IEnumerator Prefight(){
+        hatTargetRot = Quaternion.Euler(-103, -70, 70);
+        
+        yield return new WaitForSeconds(prefightDelay);
+
+        decorWizard.SetActive(false);
+        wizhardModal.SetActive(true);
+        healthBar.SetActive(true);
+        StartCoroutine(StopAndAttack());
+        wizardActive = true;
         wizShield.SetActive(false);
     }
 }
