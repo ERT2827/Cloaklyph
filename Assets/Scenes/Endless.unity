@@ -159,14 +159,17 @@ MonoBehaviour:
   - {fileID: 5868624587817830479, guid: c60c8ccf43664bb4d891f1d06a0e09bd, type: 3}
   - {fileID: 5868624587817830479, guid: 9332dfc0d3bbe6641881459798ef7c01, type: 3}
   - {fileID: 5868624587817830479, guid: ca6886c0ecc583b47881bc03bb5bec81, type: 3}
-  - {fileID: 5868624587817830479, guid: 9332dfc0d3bbe6641881459798ef7c01, type: 3}
-  - {fileID: 5868624587817830479, guid: c60c8ccf43664bb4d891f1d06a0e09bd, type: 3}
-  - {fileID: 5868624587817830479, guid: ca6886c0ecc583b47881bc03bb5bec81, type: 3}
-  - {fileID: 5868624587817830479, guid: 9332dfc0d3bbe6641881459798ef7c01, type: 3}
-  - {fileID: 5868624587817830479, guid: c60c8ccf43664bb4d891f1d06a0e09bd, type: 3}
-  - {fileID: 5868624587817830479, guid: ca6886c0ecc583b47881bc03bb5bec81, type: 3}
+  - {fileID: 3087033815534170390, guid: a5428154f7c03f1499243b7fa362afd2, type: 3}
+  - {fileID: 5419923471897190831, guid: 5b823e07c3c5584489756b668960957e, type: 3}
+  - {fileID: 599685646510746246, guid: ebf585278add90747bc63d8ac5924539, type: 3}
+  - {fileID: 5904758103662980273, guid: 0822e368cc197224985cbbd1c57672aa, type: 3}
+  bossSpawners:
+  - {fileID: 340987131485227863, guid: b163d98628bab8043bff4931aabb5843, type: 3}
+  - {fileID: 5717906000243834483, guid: 2d905a7eed287e14a9b6822030d136df, type: 3}
+  - {fileID: 6202959644494739696, guid: befb26634b05f454eb4a7274be099d61, type: 3}
   spawner: {fileID: 0}
   breakTime: 3
+  wave: 10
   onBreak: 0
 --- !u!4 &33386025
 Transform:

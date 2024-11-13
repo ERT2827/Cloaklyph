@@ -12,9 +12,10 @@ public class WavemodeController : MonoBehaviour
     
     [Header("Wave Control")]
     [SerializeField] private GameObject[] spawners;
+    [SerializeField] private GameObject[] bossSpawners;
     [SerializeField] private GameObject spawner;
     [SerializeField] private float breakTime;
-    private int wave;
+    [SerializeField] private int wave;
     
     [Header("Timer")]
     private float waveTime;
@@ -79,7 +80,9 @@ public class WavemodeController : MonoBehaviour
 
             spawner.transform.parent = transform;
         }else if(wave % 10 == 0){
-            spawner = Instantiate(spawners[10], transform.position, Quaternion.identity) as GameObject;
+            int r = UnityEngine.Random.Range(0, 3);
+            
+            spawner = Instantiate(bossSpawners[r], transform.position, Quaternion.identity) as GameObject;
 
             spawner.transform.parent = transform;
         }else{
